@@ -3,11 +3,12 @@ library(readxl)
 library(DT)
 # read_journal ------------------------------------------------------------
 
-read_journal <- function(.path, .filename) {
+read_journal <- function(.filename) {
   
-  filepath.vec <- file.path(.path, .filename)
+  # filepath.vec <- file.path(#.path,
+  #   .filename)
   
-  final.df <- read_excel(filepath.vec,
+  final.df <- read_excel(.filename,
                          sheet = "Work Journal",
                          skip = 2,
                          col_types = c("text")
@@ -15,7 +16,7 @@ read_journal <- function(.path, .filename) {
     # mutate_if(lubridate::is.POSIXct, lubridate::hms) %>% 
     mutate_if(grepl("Date", names(.)), as.numeric) %>% 
     mutate_if(grepl("Date", names(.)), as.Date, origin = "1899-12-30") %>% 
-    mutate(Employee = as.character(read_excel(filepath.vec,
+    mutate(Employee = as.character(read_excel(.filename,
                                               sheet = "Work Journal",
                                               col_names = FALSE,
                                               range = "B1"))) %>% 

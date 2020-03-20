@@ -20,23 +20,50 @@ shinyServer(function(input, output, session) {
 
 
 # list files ----------------------------------------------------------------
-    observeEvent(input$filepath, {
-        file.list <- list.files(input$filepath) %>%
-            .[grepl(".xls", .)] 
+    # observeEvent(input$file, {
+    #     file.list <- list.files(input$filepath) %>%
+    #         .[grepl(".xls", .)]
+    #     journal.df <- purrr::map_df(file.list, function(file.i) {
+    #         # print(file.i)
+    #         read_journal(.filename = file.i)
+    #     }) %>%
+    #         data.frame()
+    #     
+    #     source("server/server_dt.R", local = TRUE)
+    # })
+    
+    # list files ----------------------------------------------------------------
+    observeEvent(input$files, {
+        # input$file1 will be NULL initially. After the user selects
+        # and uploads a file, it will be a data frame with 'name',
+        # 'size', 'type', and 'datapath' columns. The 'datapath'
+        # column will contain the local filenames where the data can
+        # be found.
+        inFile <- input$files
         
-        journal.df <- purrr::map_df(file.list, function(file.i) {
+        if (is.null(inFile)) return(NULL)
+        
+        # files.vec <- unlist(inFile$datapath)
+        # file.list <- files.vec [grepl(".xls", files.vec )]
+        journal.df <- purrr::map_df(inFile$datapath, function(file.i) {
             # print(file.i)
-            read_journal(.path = input$filepath,
-                         .filename = file.i)
+            read_journal(.filename = file.i)
         }) %>%
             data.frame()
         
         source("server/server_dt.R", local = TRUE)
     })
     
-# read_journals -----------------------------------------------------------
-
-
+# checks -----------------------------------------------------------
+    # output$contents <- renderTable({
+    #     
+    #     inFile <- input$files
+    #     
+    #     if (is.null(inFile))
+    #         return(NULL)
+    #     
+    #     data.frame(inFile)
+    # })
 # DT ----------------------------------------------------------------------
     # source("server/server_dt.R", local = TRUE)
     

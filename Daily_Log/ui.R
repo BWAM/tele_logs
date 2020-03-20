@@ -13,7 +13,7 @@ library(shiny)
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Daily Log"),
+    titlePanel("Journal ViewR"),
 
     # Sidebar with a slider input for number of bins
     # sidebarLayout(
@@ -27,17 +27,23 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
     mainPanel(
-        textInput(inputId = "filepath",
-                  label = "File Path",
-                  width = '900px',
-                  value = file.path(
-                      "C:",
-                      "Users",
-                      "zmsmith.000",
-                      "New York State Office of Information Technology Services",
-                      "dec.365.SASS - TelecommutingLogs"
-                  )),
-        DTOutput('dt_journals')
+        fileInput("files", "Select all files of intrest. To select a range of files, select the file at the head of the range, hold shift, select the file at the end of the range, click Open. This should select and highlight all files between the two selected files.", multiple = TRUE,
+                  accept = c(
+                      ".xls",
+                      ".xlsx")
+        ),
+        # textInput(inputId = "filepath",
+        #           label = "File Path",
+        #           width = '900px',
+        #           value = file.path(
+        #               "C:",
+        #               "Users",
+        #               "zmsmith.000",
+        #               "New York State Office of Information Technology Services",
+        #               "dec.365.SASS - TelecommutingLogs"
+        #           )),
+        DTOutput('dt_journals'),
+        tableOutput("contents")
         )
     # )
 ))
