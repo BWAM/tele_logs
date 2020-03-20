@@ -1,0 +1,105 @@
+---
+title: "SASS: Daily Log"
+author: "Alexander J. Smith"
+date: "`r format(Sys.Date(),format='%B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE,
+                      results = "asis")
+```
+
+# Hours Logged
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+```{r}
+# .path <- path.vec
+# .filename <- file.list[6]
+read_journal <- function(.path, .filename) {
+  
+  filepath.vec <- file.path(.path, .filename)
+
+  final.df <- read_excel(filepath.vec,
+      sheet = "Work Journal",
+      skip = 2,
+      col_types = c("text")
+      ) %>% 
+    # mutate_if(lubridate::is.POSIXct, lubridate::hms) %>% 
+    mutate_if(grepl("Date", names(.)), as.numeric) %>% 
+    mutate_if(grepl("Date", names(.)), as.Date, origin = "1899-12-30") %>% 
+    mutate(Employee = as.character(read_excel(filepath.vec,
+                                 sheet = "Work Journal",
+                                 col_names = FALSE,
+                                 range = "B1"))) %>% 
+    distinct() 
+  
+  names(final.df) <- c("Date",
+                       "Description",
+                       "Estimated_Hours",
+                       "Actual_Hours",
+                       "Planned_Unplanned",
+                       "Result",
+                       "Comments",
+                       "Time_In_1",
+                       "Time_Out_1",
+                       "Time_In_2",
+                       "Time_Out_2",
+                       "Time_In_3",
+                       "Time_Out_3",
+                       "Employee")
+  
+
+  final.df %>% 
+    select(Date, Employee, everything())
+}
+```
+
+```{r}
+path.vec <- file.path(
+  "C:",
+  "Users",
+  "zmsmith.000", 
+  "New York State Office of Information Technology Services",
+  "dec.365.SASS - TelecommutingLogs"
+)
+
+file.list <- list.files(path.vec) %>% .[grepl(".xls", .)]
+```
+
+
+```{r}
+# file.i <- file.list[6]
+final.df <- purrr::map_df(file.list, function(file.i) {
+  # print(file.i)
+  read_journal(.path = path.vec,
+               .filename = file.i)
+}) %>% 
+  data.frame()
+
+
+
+DT::datatable(final.df,
+              rownames = FALSE,
+              filter = 'top',
+              extensions = c('Buttons'),
+              options = list(
+  dom = 'Bfrtip',
+  buttons = c('copy', 'csv', 'excel'),
+  pageLength = 100,
+  scrollX = TRUE,
+  scrollY = "500px",
+  autoWidth = TRUE,
+  columnDefs = rlang::list2(list(width = '100px', targets = c(1, 6)),
+                    list(width = '200px', targets = c(2, 7)),
+                    list(width = '300px', targets = c(3, 8)),
+                    list(className = 'dt-center', targets = 1:(ncol(final.df) - 1))
+                    )
+))
+```
