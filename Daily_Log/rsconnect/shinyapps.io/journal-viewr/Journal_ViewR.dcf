@@ -1,0 +1,12 @@
+name: Journal_ViewR
+title: Journal_ViewR
+username:
+account: journal-viewr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1971137
+bundleId: 2902471
+url: https://journal-viewr.shinyapps.io/Journal_ViewR/
+when: 1584721491.17846
+asMultiple: FALSE
+asStatic: FALSE
