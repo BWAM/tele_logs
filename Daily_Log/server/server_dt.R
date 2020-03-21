@@ -1,10 +1,10 @@
 # Create the DataTable.
 dt.react <- reactive({
   # Prevent red error message from appearing while data is loading.
-  if (is.null(journal.df)) return(NULL)
+  if (is.null(journal.df())) return(NULL)
   
   
-  DT::datatable(journal.df,
+  DT::datatable(journal.df(),
                 rownames = FALSE,
                 filter = 'top',
                 extensions = c('Buttons'),
@@ -19,7 +19,7 @@ dt.react <- reactive({
                                             list(width = '200px', targets = c(2, 7)),
                                             list(width = '300px', targets = c(3, 8)),
                                             list(className = 'dt-center',
-                                                 targets = 1:(ncol(journal.df) - 1)))
+                                                 targets = 1:(ncol(journal.df()) - 1)))
                   )
                 )
   
