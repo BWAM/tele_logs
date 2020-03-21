@@ -33,7 +33,7 @@ shinyServer(function(input, output, session) {
     # })
     
     # list files ----------------------------------------------------------------
-    observeEvent(input$files, {
+    journal.df <- reactive({
         # input$file1 will be NULL initially. After the user selects
         # and uploads a file, it will be a data frame with 'name',
         # 'size', 'type', and 'datapath' columns. The 'datapath'
@@ -50,9 +50,33 @@ shinyServer(function(input, output, session) {
             read_journal(.filename = file.i)
         }) %>%
             data.frame()
-        
-        source("server/server_dt.R", local = TRUE)
     })
+    
+    source("server/server_dt.R", local = TRUE)
+    
+    observeEvent(input$do, {
+        if (is.null(input$dt_journals_rows_current)) return(NULL)
+        rmarkdown::render(file.path("server",
+                                    "report_template.Rmd"), 
+                          output_file = paste0("journal-logs_",
+                                               Sys.Date()), 
+                          params = list(journals = isolate(
+                              journal.df()[input$dt_journals_rows_current, ]))
+        )
+    })
+    
+    output$download<- downloadHandler(
+        filename = paste0("journal-logs_",
+                          Sys.Date(), ".docx"),
+        content = function(file) {
+            rmarkdown::render(file.path("server",
+                                        "report_template.Rmd"), 
+                              output_file = file, 
+                              params = list(journals = isolate(
+                                  journal.df()[input$dt_journals_rows_current, ]))
+            )
+        }
+    )
     
 # checks -----------------------------------------------------------
     # output$contents <- renderTable({
