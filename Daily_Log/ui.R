@@ -22,7 +22,13 @@ shinyUI(
                 multiple = TRUE,
                 accept = c(".xls",
                            ".xlsx")),
-            DTOutput('dt_journals')#,
+            br(),
+            downloadButton("download", "Render Report"),
+            br(),
+            br(),
+            br(),
+            DTOutput('dt_journals')
+            
             # tableOutput("contents")
         ),
         tabPanel("App Instructions",
