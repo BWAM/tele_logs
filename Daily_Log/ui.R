@@ -27,12 +27,12 @@ shinyUI(
         ),
         tabPanel("App Instructions",
                  tags$iframe(src = 'intro.html', # put in /www
-                             width = '100%', height = '800px', 
+                             width = '60%', height = '800px', 
                              frameborder = 0, scrolling = 'auto')
                  ),
         tabPanel("Sync Instructions",
                  tags$iframe(src = 'sync_instructions.html', # put in /www
-                             width = '100%', height = '800px', 
+                             width = '60%', height = '800px', 
                              frameborder = 0, scrolling = 'auto')
                  )
     ) # navbar

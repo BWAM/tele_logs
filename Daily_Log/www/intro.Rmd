@@ -1,6 +1,8 @@
 ---
 title: "Overview"
-output: html_document
+output: 
+  html_document:
+    css: css_styles.css
 ---
 
 This application allows you to compile, view, and download telecommuting journal logs.
