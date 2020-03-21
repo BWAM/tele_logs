@@ -1,0 +1,11 @@
+---
+title: "Sync Teams/SharePoint Folder"
+output: html_document
+---
+
+1. Open Teams
+2. Navigate into the folder where the journal logs are stored
+3. At the top of the folder window, select “Open in SharePoint.” A SharePoint tab will open in your default browser.
+4. On the SharePoint site, click the “Sync” button located on the toolbar
+5. A pop-up window will appear informing that the library will sync with your device for easy access.” Select “Sync now.”
+6. A pop-up window will appear asking “Open Microsoft OneDrive?” Select “Open Microsoft OneDrive.

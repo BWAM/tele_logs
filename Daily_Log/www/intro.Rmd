@@ -1,0 +1,15 @@
+---
+title: "Overview"
+output: html_document
+---
+
+This application allows you to compile, view, and download telecommuting journal logs.
+
+Files must be stored locally on your machine to be accessibel to the application. If you are using Teams or SharePoint to store your journal logs, follow the instructions in the Sync Instructions tab.
+
+To load the journals, click on the "Browse" button below, navigate to the journals location on your machine, select all of the files of interest, and click "Open." The selected files will be compiled and made available in an interactive table below.
+
+- How to select multiple files
+    + Select a range of files by click on the top most file of interst, hold shift, and select the lowest file of interest. All files in between the two selected files should be highlighted. Once all files of interest have been selected, click "Open."
+    + Select specific files by holding control as you select multiple files. Once all files of interest have been selected, click "Open."
+
