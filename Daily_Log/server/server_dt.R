@@ -11,7 +11,7 @@ dt.react <- reactive({
                 options = list(
                   dom = 'Bfrtip',
                   buttons = c('copy', 'csv', 'excel'),
-                  pageLength = 100,
+                  pageLength = nrow(journal.df()),
                   scrollX = TRUE,
                   scrollY = "500px",
                   autoWidth = TRUE,
