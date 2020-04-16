@@ -5,8 +5,8 @@ account: journal-viewr
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1971137
-bundleId: 2904122
+bundleId: 3022004
 url: https://journal-viewr.shinyapps.io/Journal_ViewR/
-when: 1584755870.41567
+when: 1587043256.30568
 asMultiple: FALSE
 asStatic: FALSE
